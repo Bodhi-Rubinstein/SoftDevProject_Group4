@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - User Stats</title>
+</head>
+<body>
+
+    {{> nav}}
+  <h1>Welcome, {{user.username}}</h1>
+  <p>Your overall: {{user.overall}}</p>
+
+  <!-- Add more stats as needed, e.g., card count, battle logs, etc. -->
+  
+  <!-- Navigation -->
+  <p>
+    <a href="/logout">Logout</a>
+  </p>
+</body>
+</html>

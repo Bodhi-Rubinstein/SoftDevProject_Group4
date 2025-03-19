@@ -106,7 +106,7 @@ app.post('/login', async (req, res) => {
       if (match) { //if match == 1
         req.session.user = user;
         req.session.save(); //save and redirect
-        return res.redirect('/discover'); //returns up here so no infinite loop
+        return res.redirect('/home'); //returns up here so no infinite loop
       } 
       else { //render login again
         return res.render('pages/login', { message: 'Incorrect username or password.' });
@@ -140,7 +140,6 @@ app.post('/register', async (req, res) => {
       return res.redirect('/register'); // Stay on register page if error occurs
   }
 });
-
   
 
       // Authentication Middleware.
@@ -152,6 +151,20 @@ const auth = (req, res, next) => {
     next();
   };
   
+//home route (only for authenticated users)
+app.get('/home', auth, async (req, res) => {
+  const username = req.session.user.username;
+  try {
+    // Query for the user stats
+    const userStats = await db.one('SELECT * FROM users WHERE username = $1', [username]);
+    // Render the home page and pass the user stats to the view
+    res.render('pages/home', {user: userStats});
+  } catch (error) {
+    console.error('Error fetching user stats:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
   // Authentication Required
   app.use(auth);
 
