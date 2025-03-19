@@ -47,7 +47,7 @@ db.connect()
 
 app.engine('hbs', engine({
   extname: 'hbs',
-  defaultLayout: false, // Change this if you have a default layout (e.g., 'main')
+  defaultLayout: 'main', 
   layoutsDir: path.join(__dirname, 'views', 'layouts'),
   partialsDir: path.join(__dirname, 'views', 'partials')
 }));
