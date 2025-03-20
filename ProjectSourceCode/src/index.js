@@ -79,7 +79,6 @@ app.use(
 // <!-- Section 4 : API Routes -->
 // *****************************************************
 
-// TODO - Include your API routes here
 app.get('/', (req, res) => {
     res.redirect('/login'); 
   });
@@ -125,7 +124,7 @@ app.post('/register', async (req, res) => {
   const { username, password } = req.body;
   const hash = await bcrypt.hash(password, 10);
   
-  let userInsertQuery = `INSERT INTO users (username, password, overall) VALUES ($1, $2, 0) RETURNING username;`;
+  let userInsertQuery = `INSERT INTO users (username, password, overall, trophies, money) VALUES ($1, $2, 0, 0, 100) RETURNING username;`;
 
   try {
       await db.one(userInsertQuery, [username, hash]);
